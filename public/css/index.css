@@ -1,0 +1,7 @@
+.container,.wrapper {
+  margin: 0px auto;
+  max-width: 1180px;
+}
+.error {
+  color: red;
+}

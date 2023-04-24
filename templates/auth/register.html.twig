@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset("assets/css/index.css") }}">
+{% endblock %}
+{% block js %}
+	{{ parent() }}
+	<script src="{{ asset("assets/js/validate.js") }}"></script>
+{% endblock %}
+
+{% block sidebar %}
+	{{ parent() }}
+{% endblock %}
+{% block body %}
+	<div class="wrapper">
+		<div class="title-text">
+			<div class="title signup">USER REGISTRATION</div>
+		</div>
+		<div class="form-container">
+			<div class="form-inner">
+				<form action="/register" class="signup" method="POST" enctype="multipart/form-data">
+					<div class="field" id="name">
+						<input type="text" placeholder="Full Name" name="name" required>
+						<span class="error">
+							{% if error["name"] is defined %}
+								{{ error["name"] }}
+							{% endif %}
+						</span>
+					</div>
+
+					<div class="field" id="emailId">
+						<input type="text" placeholder="Email Address" name="emailId" required>
+						<span class="error">
+							{% if error["emailId"] is defined %}
+								{{ error["emailId"] }}
+							{% endif %}
+						</span>
+					</div>
+
+					<div class="field" id="password">
+						<div class="password-input">
+							<input type="password" placeholder="Password" id="pass" name="password" required>
+								<i id="eye" class="fa-regular fa-eye"></i>
+							</input>
+						</div>
+						<span class="error">
+							{% if error["password"] is defined %}
+								{{ error["password"] }}
+							{% endif %}
+						</span>
+					</div>
+
+					<div class="field pass-instruction">
+						<p>Password should be 8-15 character and contains
+							<br>
+							atleast 1 uppcase
+							<br>
+							atleast 1 lowercase
+							<br>
+							atleast 1 special character(@ , # , $ , ? , ! , % )<br>
+							atleast 1 number</p>
+					</div>
+
+					<div class="field btn">
+						<div class="btn-layer"></div>
+						<input type="submit" value="Register" id="submit-btn">
+					</div>
+
+					<div class="field btn">
+						<div class="btn-layer"></div>
+						<button>
+							<a href="/">Go Back</a>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+

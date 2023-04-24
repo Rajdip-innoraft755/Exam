@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset("assets/css/index.css") }}">
+{% endblock %}
+{% block js %}
+	{{ parent() }}
+	<script src="{{ asset("assets/js/validate.js") }}"></script>
+{% endblock %}
+
+{% block sidebar %}
+	{{ parent() }}
+{% endblock %}
+{% block body %}
+	<div class="container">
+      <div class="navabr">
+        <h3>Hello
+          {{ userinfo.getName() }}</h3>
+        <ul>
+          <li><a href="/stock-board">VIEW STOCKS</a></li>
+          <li><a href="/logout">LOG OUT</a></li>
+        </ul>
+      </div>
+
+		<div class="title-text">
+			<div class="title signup">ADD STOCK</div>
+		</div>
+
+		<div class="form-container">
+			<div class="form-inner">
+				<form action="/stock-entry" class="signup" method="POST" enctype="multipart/form-data">
+					<div class="field" id="name">
+						<input type="text" placeholder="Stock Name" name="name" required>
+						<span class="error">
+							{% if error["name"] is defined %}
+								{{ error["name"] }}
+							{% endif %}
+						</span>
+					</div>
+
+					<div class="field" id="price">
+						<input type="number" placeholder="Stock Price" name="price" required>
+						<span class="error">
+							{% if error["price"] is defined %}
+								{{ error["price"] }}
+							{% endif %}
+						</span>
+					</div>
+
+					<div class="field btn">
+						<div class="btn-layer"></div>
+						<input type="submit" value="ADD STOCK" id="submit-btn">
+					</div>
+
+					<div class="field btn">
+						<div class="btn-layer"></div>
+						<button>
+							<a href="/stock-board">Go Back</a>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+    <div class="stock-table">
+      <table>
+        <thead>
+          <td>Stock Name</td>
+          <td>Stock Price</td>
+          <td>Stock Create Date</td>
+          <td>Last Updated on</td>
+          <td>Action</td>
+        </thead>
+        <tbody>
+          {% if stocks is defined %}
+            {% for stock in stocks %}
+              <tr>
+                <td>
+                  <input type="text" name="name" class="name" id="{{ stock.getId() }}"
+                  value="{{ stock.getName() }}" disabled required>
+                </td>
+                <td>
+                  <input type="text" name="price" class="price" id="{{ stock.getId() }}"
+                  value="{{ stock.getPrice() }}" disabled required>
+                </td>
+                <td>
+                  <input type="text"
+                  value="{{ stock.getCreateDate() }}" disabled required>
+                </td>
+                <td>
+                  <input type="text"
+                   value="{{ stock.getLastUpdate() }}" disabled required>
+                </td>
+                <td>
+                  {% if stock.getOwner().getId() == userinfo.getId() %}
+                    <button id="{{ stock.getId() }}" class="delete">Delete</button>
+                    <button id="{{ stock.getId() }}" class="edit">Edit</button>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+
+	</div>
+
+{% endblock %}
+

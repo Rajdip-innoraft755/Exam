@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block css %}
+	<link rel="stylesheet" href="{{ asset("/css/index.css") }}">
+{% endblock %}
+{% block js %}
+	{{ parent() }}
+{% endblock %}
+
+{% block sidebar %}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<div class="wrapper">
+		<div class="title-text">
+			<div class="title login">USER LOGIN</div>
+		</div>
+		<div class="form-container">
+			<div class="form-inner">
+				<form action="" method="POST" class="login">
+					<div>
+						{% if loginErr is defined %}
+							<span class="error">
+								{{ loginErr }}
+							</span>
+						{% endif %}
+					</div>
+					<div class="field" id="emailId">
+						<input type="text" placeholder="Email ID" name="emailId" required>
+						<span class="error"></span>
+					</div>
+					<div class="field" id="password">
+						<div class="password-input">
+							<input type="password" placeholder="Password" id="pass" name="password" required>
+								<i id="eye" class="fa-regular fa-eye"></i>
+							</input>
+						</div>
+						<span class="error"></span>
+					</div>
+
+					<div class="field btn">
+						<div class="btn-layer"></div>
+						<input id="login-btn" type="submit" value="Login">
+					</div>
+					<div class="signup-link">Not a member?
+						<a href="/register">Signup now</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
